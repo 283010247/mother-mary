@@ -8,7 +8,11 @@
     "egg-mongoose": "^3.0.0",
     "egg-scripts": "^2.5.0",
     "egg-validate": "^2.0.2",
-    "qiniu": "^7.2.1"
+    "egg-view-nunjucks": "^2.2.0",
+    "lodash": "^4.17.11",
+    "path": "^0.12.7",
+    "qiniu": "^7.2.1",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

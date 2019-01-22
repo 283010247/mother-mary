@@ -21,11 +21,20 @@ module.exports = appInfo => {
       reconnectInterval: 500
     }
   }
-  // config.security = {
-  //   csrf: {
-  //     headerName: 'x-csrf-token' // 通过 header 传递 CSRF token 的默认字段为 x-csrf-token
-  //   }
-  // }
+
+  config.qiniu = {
+    accessKey: 'R7wrNwfn9V9Rqtdc0aX-xOkNxFNSofiyj3Jh-o_e',
+    secretKey: 'AJNblF6MeNPONhngybISQiyojSazo1mmzyx8Ru0p',
+    bucket: 'virginmary',
+    origin: 'plge4pwnk.bkt.clouddn.com'
+  }
+
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.html': 'nunjucks'
+    }
+  }
 
   return config
 }

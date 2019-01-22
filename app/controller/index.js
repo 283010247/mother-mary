@@ -1,10 +1,8 @@
-'use strict'
-
-const Controller = require('egg').Controller
+const {Controller} = require('egg')
 
 class HomeController extends Controller {
   async index() {
-    this.ctx.body = '查询所有'
+    await this.ctx.render('admin/index.html')
   }
   async create() {
     this.ctx.body = '创建'
@@ -17,6 +15,9 @@ class HomeController extends Controller {
   }
   async show() {
     this.ctx.body = '单个查询'
+  }
+  async upload() {
+    this.ctx.body = '上传'
   }
 }
 
