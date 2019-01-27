@@ -11,37 +11,10 @@ module.exports = app => {
       type: String,
       required: true
     },
-    views: {
-      type: Number,
-      default: 0
-    },
+    // 标识，1-新闻动态，2-公司简介
     flag: {
       type: Number,
       default: 3
-    },
-    like: {
-      type: Array,
-      default: []
-    },
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-      }
-    ],
-    tags: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Tag'
-      }
-    ],
-    previous_article: {
-      type: Object,
-      default: null
-    },
-    next_article: {
-      type: Object,
-      default: null
     },
     created_at: {
       type: Date,
