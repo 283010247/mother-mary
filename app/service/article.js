@@ -21,8 +21,13 @@ class ArticleService extends Service {
     }
   }
   // 更新文章
-  async update () {
-    this.ctx.body = '更新文章'
+  async update (id, body) {
+    try {
+      await this.ctx.model.Article.update({_id: id}, body)
+      return {msg:'success', code: 0}
+    } catch (error) {
+      return {msg: error, code: 1}
+    }
   }
   // 删除文章
   async destroy () {

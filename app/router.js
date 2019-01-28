@@ -7,5 +7,5 @@ module.exports = app => {
   const { router, controller } = app
   router.resources('article', '/api/article', controller.api.article)
   router.get('/getUploadToken', controller.api.upload.getUploadToken)
-  router.get('/delete', controller.api.upload.delete)
+  router.get('/deleteFile', controller.api.upload.delete)
 }
