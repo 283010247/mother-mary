@@ -17,7 +17,7 @@ module.exports = app => {
     },
     imgs: {
       type: Array,
-      require: false
+      require: true
     },
     // 分类
     _cate: {

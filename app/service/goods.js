@@ -1,16 +1,6 @@
 const { Service } = require('egg')
 
 class GoodsService extends Service {
-  // 获取所有商品
-  async index() {
-    const query = this.ctx.query
-    this.ctx.body = query
-  }
-  // 获取指定商品
-  async show() {
-    const query = this.ctx.params
-    this.ctx.body = query
-  }
   // 新建商品
   async create(body) {
     try {

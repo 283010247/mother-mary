@@ -12,7 +12,7 @@ const createRule = {
 class CateController extends Controller {
   // 获取所有分类
   async index(ctx) {
-    const data = await ctx.model.Cate.find({ flag: 1 })
+    const data = await ctx.model.Cate.find()
     ctx.body = data
   }
   // 获取指定分类

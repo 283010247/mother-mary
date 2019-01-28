@@ -1,15 +1,34 @@
 const { Controller } = require('egg')
 
+// 商品验证
+const createRule = {
+  name: {
+    type: 'string'
+  },
+  describe: {
+    type: 'string'
+  },
+  detail: {
+    type: 'string'
+  },
+  _cate: {
+    type: 'string'
+  },
+  imgs: {
+    type: 'array'
+  }
+}
+
 class GoodsController extends Controller {
   // 获取所有商品
   async index(ctx) {
-    const data = await ctx.model.Goods.find({ flag: 1 })
+    const data = await ctx.model.Goods.find().populate('_cate')
     ctx.body = data
   }
   // 获取指定商品
   async show(ctx) {
     const { id } = ctx.params
-    const data = await ctx.model.Goods.findOne({ _id: id })
+    const data = await ctx.model.Goods.findOne({ _id: id }).populate('_cate')
     ctx.body = data
   }
   // 新建商品

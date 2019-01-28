@@ -1,16 +1,6 @@
 const { Service } = require('egg')
 
 class ArticleService extends Service {
-  // 获取所有文章
-  async index() {
-    const query = this.ctx.query
-    this.ctx.body = query
-  }
-  // 获取指定文章
-  async show() {
-    const query = this.ctx.params
-    this.ctx.body = query
-  }
   // 新建文章
   async create(body) {
     try {

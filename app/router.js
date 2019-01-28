@@ -9,6 +9,8 @@ module.exports = app => {
   router.resources('article', '/api/article', controller.api.article)
   // 分类
   router.resources('cate', '/api/cate', controller.api.cate)
+  // 商品
+  router.resources('goods', '/api/goods', controller.api.goods)
   // 获取上传token
   router.get('/getUploadToken', controller.api.upload.getUploadToken)
   // 删除上传文件
