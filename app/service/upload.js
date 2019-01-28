@@ -15,7 +15,7 @@ class UploadService extends Service {
   }
 
   // 删除动作，key要删除的文件名
-  delete (key) {
+  delete(key) {
     const { accessKey, secretKey, bucket } = this.config.qiniu
     const config = new qiniu.conf.Config()
     //config.useHttpsDomain = true
