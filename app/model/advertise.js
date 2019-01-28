@@ -2,7 +2,7 @@ module.exports = app => {
   const mongoose = app.mongoose
   const Schema = mongoose.Schema
 
-  const ArticleSchema = new Schema({
+  const AdvertiseSchema = new Schema({
     title: {
       type: String,
       required: true
@@ -11,7 +11,11 @@ module.exports = app => {
       type: String,
       required: true
     },
-    // 标识，1-新闻动态，2-公司简介
+    imgs: {
+      type: Array,
+      required: true
+    },
+    // 标识，1-移动端轮播图，2-pc端轮播图
     flag: {
       type: Number,
       default: 1
@@ -26,5 +30,5 @@ module.exports = app => {
     }
   })
 
-  return mongoose.model('Article', ArticleSchema)
+  return mongoose.model('Advertise', AdvertiseSchema)
 }

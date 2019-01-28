@@ -11,6 +11,8 @@ module.exports = app => {
   router.resources('cate', '/api/cate', controller.api.cate)
   // 商品
   router.resources('goods', '/api/goods', controller.api.goods)
+  // 广告
+  router.resources('advertise', '/api/advertise', controller.api.advertise)
   // 获取上传token
   router.get('/getUploadToken', controller.api.upload.getUploadToken)
   // 删除上传文件
