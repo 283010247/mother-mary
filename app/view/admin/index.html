@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.full.min.js"></script>
-    <script src="/public/static/qiniu.js"></script>
-  </head>
-  <body>
-    <div class="form-field"><Button id='pickfiles'>上传图片</Button></div>
-    <script>
-      const token = 'R7wrNwfn9V9Rqtdc0aX-xOkNxFNSofiyj3Jh-o_e:II9jOTYSdcfZHmX0_bbbBl-I180=:eyJzY29wZSI6InZpcmdpbm1hcnkiLCJkZWFkbGluZSI6MTU0ODU3MDIxMH0='
-      Qiniu.uploader({
-        runtimes: 'html5,flash,html4',
-        browse_button: 'pickfiles',
-        flash_swf_url: 'https://cdn.bootcss.com/plupload/2.1.1/Moxie.swf',
-        chunk_size: '2mb',
-        uptoken: token,
-        save_key: false,
-        unique_names: false,
-        // uptoken_url: 'http://jssdk.demo.qiniu.io/uptoken',
-        domain: 'plge4pwnk.bkt.clouddn.com',
-        get_new_uptoken: true,
-        auto_start: true,
-        max_retries: 3,
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>圣母后台管理</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.full.min.js"></script>
+  <script src="/public/static/qiniu.js"></script>
+</head>
+
+<body>
+  <div class="form-field">
+    <Button id='pickfiles'>上传图片</Button>
+    <Button id='pickfiles-two'>上传图片</Button>
+  </div>
+  <script>
+    axios.get('/getUploadToken').then(res => {
+      const { token, origin } = res.data.data
+      const Q1 = new QiniuJsSDK()
+      const Q2 = new QiniuJsSDK()
+      
+      Q2.uploader({
+        uptoken: token, // uptoken是上传凭证，由其他程序生成
+        domain: origin, // bucket域名，下载资源时用到，必需
+        runtimes: 'html5,flash,html4', // 上传模式，依次退化
+        browse_button: 'pickfiles-two', // 上传选择的点选按钮，必需，id名
+        flash_swf_url: 'https://cdn.bootcss.com/plupload/2.1.1/Moxie.swf', //引入flash，相对路径
+        chunk_size: '2mb', // 分块上传时，每块的体积
+        save_key: false, // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+        unique_names: false, // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+        get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的uptoken
+        auto_start: true, // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        max_retries: 3, // 上传失败最大重试次数
         filters: {
-          max_file_size: '10000mb',
+          max_file_size: '500mb',
           prevent_duplicates: false,
           // 只允许上传图片
           // mime_types: [{ title: 'Image files', extensions: 'jpg,jpeg,gif,png' }]
         },
         init: {
-          FilesAdded: (up, files) => {
+          FilesAdded: (up, files) => { // 文件添加进队列后，处理相关的事情
             // const fileItem = files[0].getNative()
             // const url = window.URL
             // this.setState({ thumb: url.createObjectURL(fileItem) })
           },
-          BeforeUpload: (up, file) => {
+          BeforeUpload: (up, file) => { // 每个文件上传前，处理相关的事情
             console.log('上传之前', file)
           },
-          UploadProgress: (up, file) => {
+          UploadProgress: (up, file) => { // 每个文件上传时，处理相关的事情
             console.log('上传中 file', file)
           },
-          FileUploaded: (up, file, info) => {
+          FileUploaded: (up, file, info) => { // 每个文件上传成功后，处理相关的事情
             console.log('文件上传完毕', info)
           },
-          Error: (up, err, errTip) => {
+          Error: (up, err, errTip) => { //上传出错时，处理相关的事情
             console.log('上传失败', err)
           },
-          Key: (up, file) => {
-            // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+          Key: (up, file) => { // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
             // 该配置必须要在unique_names: false，save_key: false时才生效
             // const ext = Qiniu.getFileExtension(file.name)
             // const key = `${list.newkey}/${name}.${ext}`
@@ -62,6 +68,57 @@
           }
         }
       })
-    </script>
-  </body>
+
+      Q1.uploader({
+        uptoken: token, // uptoken是上传凭证，由其他程序生成
+        domain: origin, // bucket域名，下载资源时用到，必需
+        runtimes: 'html5,flash,html4', // 上传模式，依次退化
+        browse_button: 'pickfiles', // 上传选择的点选按钮，必需，id名
+        flash_swf_url: 'https://cdn.bootcss.com/plupload/2.1.1/Moxie.swf', //引入flash，相对路径
+        chunk_size: '2mb', // 分块上传时，每块的体积
+        save_key: false, // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+        unique_names: false, // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+        get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的uptoken
+        auto_start: true, // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        max_retries: 3, // 上传失败最大重试次数
+        filters: {
+          max_file_size: '500mb',
+          prevent_duplicates: false,
+          // 只允许上传图片
+          // mime_types: [{ title: 'Image files', extensions: 'jpg,jpeg,gif,png' }]
+        },
+        init: {
+          FilesAdded: (up, files) => { // 文件添加进队列后，处理相关的事情
+            // const fileItem = files[0].getNative()
+            // const url = window.URL
+            // this.setState({ thumb: url.createObjectURL(fileItem) })
+          },
+          BeforeUpload: (up, file) => { // 每个文件上传前，处理相关的事情
+            console.log('上传之前', file)
+          },
+          UploadProgress: (up, file) => { // 每个文件上传时，处理相关的事情
+            console.log('上传中 file', file)
+          },
+          FileUploaded: (up, file, info) => { // 每个文件上传成功后，处理相关的事情
+            console.log('文件上传完毕', info)
+          },
+          Error: (up, err, errTip) => { //上传出错时，处理相关的事情
+            console.log('上传失败', err)
+          },
+          Key: (up, file) => { // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+            // 该配置必须要在unique_names: false，save_key: false时才生效
+            // const ext = Qiniu.getFileExtension(file.name)
+            // const key = `${list.newkey}/${name}.${ext}`
+
+            // this.setState({ PicPath_0: key })
+            // return key
+          }
+        }
+      })
+
+    })
+
+  </script>
+</body>
+
 </html>

@@ -5,6 +5,8 @@
  */
 module.exports = app => {
   const { router, controller } = app
+  // 首页
+  router.get('/', controller.admin.index)
   // 文章
   router.resources('article', '/api/article', controller.api.article)
   // 分类

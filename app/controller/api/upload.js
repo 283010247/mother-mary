@@ -2,8 +2,11 @@ const { Controller } = require('egg')
 
 class UploadController extends Controller {
   // 获取上传token
-  async getUploadToken() {
-    this.ctx.body = await this.service.upload.getUploadToken()
+  async getUploadToken(ctx) {
+    const {origin} = this.config.qiniu
+    const token = await this.service.upload.getUploadToken()
+    const data = {code: 0, msg: 'success', data: {token, origin}}
+    ctx.body = data
   }
   // 删除文件
   async delete() {
