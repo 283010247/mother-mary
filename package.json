@@ -29,7 +29,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=mother-marry",
+    "start": "egg-scripts start --daemon --title=mother-marry --port=7002",
     "stop": "egg-scripts stop --title=mother-marry",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
