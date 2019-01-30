@@ -23,4 +23,6 @@ module.exports = app => {
   router.get('/getUploadToken', controller.api.upload.getUploadToken)
   // 删除上传文件
   router.get('/deleteFile', controller.api.upload.delete)
+  // 登陆
+  router.post('/api/login', controller.api.user.login)
 }
