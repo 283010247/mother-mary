@@ -6,7 +6,11 @@
 module.exports = app => {
   const { router, controller } = app
   // 首页
-  router.get('/', controller.admin.index)
+  router.get('/', controller.pc.index)
+  // 后台管理
+  router.get('/admin', controller.admin.index)
+  // 移动端
+  router.get('/mobile', controller.mobile.index)
   // 文章
   router.resources('article', '/api/article', controller.api.article)
   // 分类
