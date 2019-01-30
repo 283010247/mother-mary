@@ -36,5 +36,12 @@ module.exports = appInfo => {
     }
   }
 
+  config.alinode = {
+    "appid": "78246",
+    "secret": "b6403f83b7439789952d858b0411e70d0c87e993",
+    "error_log": ["/data/logs/mother-marry-error.log"],
+    "packages": ["/data/www/node/package.json"]
+  }
+
   return config
 }
