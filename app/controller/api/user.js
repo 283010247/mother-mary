@@ -26,16 +26,16 @@ const registerRule = {
 class UserController extends Controller {
   // 登陆
   async login(ctx) {
-    ctx.validate(loginRule, ctx.request.body)
-    const { email, password } = ctx.request.body
-    ctx.body = await ctx.service.user.checkPwd(email, password)
+    const { body } = ctx.request
+    ctx.validate(loginRule, body)
+    ctx.body = await ctx.service.user.checkPwd(body)
   }
   // 创建账户
-  async register(ctx) {
-    const { body } = ctx.request
-    ctx.validate(registerRule, body)
-    ctx.body = await ctx.service.user.register(body)
-  }
+  // async register(ctx) {
+  //   const { body } = ctx.request
+  //   ctx.validate(registerRule, body)
+  //   ctx.body = await ctx.service.user.register(body)
+  // }
 }
 
 module.exports = UserController

@@ -2,11 +2,8 @@ const { Service } = require('egg')
 
 class UserService extends Service {
   // 校验密码
-  async checkPwd(email, password) {
-    const { User } = this.ctx.model
-
-    const userInfo = await User.findOne({ email: email }).exec()
-
+  async checkPwd({ email, password }) {
+    const userInfo = await this.ctx.model.User.findOne({ email: email }).exec()
     if (userInfo) {
       try {
         if (await userInfo.comparePassword(password, userInfo.password)) {
@@ -21,7 +18,7 @@ class UserService extends Service {
           return { code: 0, data: '', msg: '密码错误' }
         }
       } catch (error) {
-        return { code: 1, data: '', msg: '系统错误' }
+        return { code: 1, data: '', msg: error }
       }
     } else {
       return { code: 1, data: '', msg: '账号不存在' }
