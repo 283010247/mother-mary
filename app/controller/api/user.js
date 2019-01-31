@@ -1,6 +1,20 @@
 const { Controller } = require('egg')
 
-const rule = {
+// 登陆验证
+const loginRule = {
+  email: {
+    type: 'string'
+  },
+  password: {
+    type: 'string'
+  }
+}
+
+// 注册验证
+const registerRule = {
+  username: {
+    type: 'string'
+  },
   email: {
     type: 'string'
   },
@@ -12,29 +26,15 @@ const rule = {
 class UserController extends Controller {
   // 登陆
   async login(ctx) {
-    ctx.validate(rule, ctx.request.body)
-    const { user, match, msg, code } = await ctx.service.checkPassword(email, password)
-    if (match) {
-      ctx.session.user = {
-        _id: user._id,
-        email: user.email,
-        role: user.role,
-        username: user.username
-      }
-
-      ctx.body = {
-        msg,
-        data: {
-          email: user.email,
-          username: user.username
-        }
-      }
-    }
-
-    ctx.body = {
-      msg,
-      code
-    }
+    ctx.validate(loginRule, ctx.request.body)
+    const { email, password } = ctx.request.body
+    ctx.body = await ctx.service.user.checkPwd(email, password)
+  }
+  // 创建账户
+  async register(ctx) {
+    const { body } = ctx.request
+    ctx.validate(registerRule, body)
+    ctx.body = await ctx.service.user.register(body)
   }
 }
 

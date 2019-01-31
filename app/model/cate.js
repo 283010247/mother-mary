@@ -22,6 +22,14 @@ module.exports = app => {
       default: Date.now
     }
   })
+  CateSchema.pre('save', function (next) {
+    if (this.isNew) {
+      this.createdAt = this.updatedAt = Date.now()
+    } else {
+      this.updatedAt = Date.now()
+    }
 
+    next()
+  })
   return mongoose.model('Cate', CateSchema)
 }

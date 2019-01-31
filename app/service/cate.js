@@ -13,7 +13,7 @@ class CateService extends Service {
   // 更新分类
   async update(id, body) {
     try {
-      await this.ctx.model.Cate.update({ _id: id }, {...body, updated_at: Date()})
+      await this.ctx.model.Cate.updateOne({ _id: id }, body)
       return { msg: 'success', code: 0 }
     } catch (error) {
       return { msg: error, code: 1 }

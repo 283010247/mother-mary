@@ -13,7 +13,7 @@ class AdvertiseService extends Service {
   // 更新文章
   async update(id, body) {
     try {
-      await this.ctx.model.Advertise.update({ _id: id }, {...body, updated_at: Date()})
+      await this.ctx.model.Advertise.updateOne({ _id: id }, body)
       return { msg: 'success', code: 0 }
     } catch (error) {
       return { msg: error, code: 1 }

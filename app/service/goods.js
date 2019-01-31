@@ -13,7 +13,7 @@ class GoodsService extends Service {
   // 更新商品
   async update(id, body) {
     try {
-      await this.ctx.model.Goods.update({ _id: id }, {...body, updated_at: Date()})
+      await this.ctx.model.Goods.updateOne({ _id: id }, body)
       return { msg: 'success', code: 0 }
     } catch (error) {
       return { msg: error, code: 1 }

@@ -25,4 +25,6 @@ module.exports = app => {
   router.get('/deleteFile', controller.api.upload.delete)
   // 登陆
   router.post('/api/login', controller.api.user.login)
+  // 注册
+  // router.post('/api/register', controller.api.user.register)
 }
