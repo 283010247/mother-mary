@@ -16,7 +16,6 @@ class AdvertiseService extends Service {
       // 更新数据库库
       await this.ctx.model.Advertise.updateOne({ _id: id }, body)
       const singleAds = await this.ctx.model.Advertise.findOne({ _id: id })
-      console.log(singleAds)
       // 更新单个广告缓存
       await this.ctx.service.cache.set(`ads-${id}`, singleAds, 60 * 60 * 24)
       // 更新所有广告缓存
