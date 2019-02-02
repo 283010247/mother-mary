@@ -1,4 +1,4 @@
-const { Controller } = require('egg')
+const {Controller} = require('egg')
 
 // 验证广告
 const createRule = {
@@ -20,23 +20,13 @@ const createRule = {
 class AdvertiseController extends Controller {
   // 获取所有广告
   async index(ctx) {
-    let data = await ctx.service.cache.get('allAds')
-    if (!data) {
-      data = await ctx.model.Advertise.find()
-      // 缓存一天
-      await ctx.service.cache.set('allAds', data, 60 * 60 * 24)
-    }
+    const data = await ctx.model.Advertise.find()
     ctx.body = data
   }
   // 获取指定广告
   async show(ctx) {
     const { id } = ctx.params
-    let data = await ctx.service.cache.get(`ads-${id}`)
-    if (!data) {
-      data = await ctx.model.Advertise.findOne({ _id: id })
-      // 缓存一天
-      await ctx.service.cache.set(`ads-${id}`, data, 60 * 60 * 24)
-    }
+    const data = await ctx.model.Advertise.findOne({ _id: id })
     ctx.body = data
   }
   // 新建广告

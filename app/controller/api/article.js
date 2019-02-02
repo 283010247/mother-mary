@@ -1,6 +1,6 @@
 const { Controller } = require('egg')
 
-// 验证新建文章
+// 验证文章
 const createRule = {
   title: {
     type: 'string'
@@ -14,34 +14,16 @@ const createRule = {
   }
 }
 
-// 验证文章类型
-const articleTypeRule = {
-  flag: {
-    type: 'string',
-    values: [1, 2]
-  }
-}
-
 class ArticleController extends Controller {
-  // 获取所有文章，flag=1获取新闻，flag=2获取企业简介
+  // 获取所有新闻文章
   async index(ctx) {
-    ctx.validate(articleTypeRule, ctx.query)
-    const { flag } = ctx.query
-    let data = await ctx.service.cache.get(`allNews-${flag}`)
-    if (!data) {
-      data = await ctx.model.Article.find({ flag })
-      await ctx.service.cache.set(`allNews-${flag}`, data, 60)
-    }
+    const data = await ctx.model.Article.find({ flag: 1 })
     ctx.body = data
   }
   // 获取指定文章
   async show(ctx) {
     const { id } = ctx.params
-    let data = await ctx.service.cache.get(`article-${id}`)
-    if (!data) {
-      data = await ctx.model.Article.findOne({ _id: id })
-      await ctx.service.cache.set(`article-${id}`, data, 60)
-    }
+    const data = await ctx.model.Article.findOne({ _id: id })
     ctx.body = data
   }
   // 新建文章
