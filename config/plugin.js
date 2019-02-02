@@ -22,17 +22,17 @@ exports.alinode = {
   package: 'egg-alinode',
 }
 
-module.exports.passport = {
-  enable: true,
-  package: 'egg-passport',
-}
+// module.exports.passport = {
+//   enable: true,
+//   package: 'egg-passport',
+// }
 
-exports.passportQQ = {
-  enable: true,
-  package: 'egg-passport-qq',
-}
+// exports.passportQQ = {
+//   enable: true,
+//   package: 'egg-passport-qq',
+// }
 
-exports.redis = {
-  enable: true,
-  package: 'egg-redis',
-}
+// exports.redis = {
+//   enable: true,
+//   package: 'egg-redis',
+// }

@@ -20,7 +20,8 @@ const createRule = {
 class AdvertiseController extends Controller {
   // 获取所有广告
   async index(ctx) {
-    const data = await ctx.model.Advertise.find()
+    const { currentPage = 1, pageSize = 10 } = ctx.request.body
+    const data = await ctx.model.Advertise.find({}, { '__v': 0 }).skip((currentPage - 1) * pageSize).limit(pageSize)
     ctx.body = data
   }
   // 获取指定广告

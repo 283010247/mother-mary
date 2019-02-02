@@ -12,7 +12,8 @@ const createRule = {
 class CateController extends Controller {
   // 获取所有分类
   async index(ctx) {
-    const data = await ctx.model.Cate.find()
+    const { currentPage = 1, pageSize = 10 } = ctx.request.body
+    const data = await ctx.model.Cate.find({}, { '__v': 0 }).skip((currentPage - 1) * pageSize).limit(pageSize)
     ctx.body = data
   }
   // 获取指定分类

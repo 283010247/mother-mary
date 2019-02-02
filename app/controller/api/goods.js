@@ -22,7 +22,8 @@ const createRule = {
 class GoodsController extends Controller {
   // 获取所有商品
   async index(ctx) {
-    const data = await ctx.model.Goods.find().populate('_cate')
+    const { currentPage = 1, pageSize = 10 } = ctx.request.body
+    const data = await ctx.model.Goods.find({}, { '__v': 0 }).populate('_cate', {'__v': 0}).skip((currentPage - 1) * pageSize).limit(pageSize)
     ctx.body = data
   }
   // 获取指定商品
