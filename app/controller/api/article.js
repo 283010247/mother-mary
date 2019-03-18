@@ -8,7 +8,7 @@ const createRule = {
   content: {
     type: 'string'
   },
-  flag: {
+  flag: {// 标识，1-新闻动态，2-公司简介
     type: 'enum',
     values: [1, 2]
   }

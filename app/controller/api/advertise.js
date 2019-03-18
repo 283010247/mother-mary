@@ -2,16 +2,16 @@ const {Controller} = require('egg')
 
 // 验证广告
 const createRule = {
-  title: {
+  title: {// 广告标题
     type: 'string'
   },
-  content: {
+  content: {// 广告内容
     type: 'string'
   },
-  imgs: {
+  imgs: {// 广告图集
     type: 'array'
   },
-  flag: {
+  flag: {// 广告标识，1-移动端轮播图，2-pc端轮播图
     type: 'enum',
     values: [1, 2]
   }

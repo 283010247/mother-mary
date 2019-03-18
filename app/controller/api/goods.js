@@ -2,19 +2,19 @@ const { Controller } = require('egg')
 
 // 商品验证
 const createRule = {
-  name: {
+  name: {// 商品名称
     type: 'string'
   },
-  describe: {
+  describe: {// 商品描述
     type: 'string'
   },
-  detail: {
+  detail: {// 商品详情
     type: 'string'
   },
-  _cate: {
+  _cate: {// 商品分类
     type: 'string'
   },
-  imgs: {
+  imgs: {// 商品图集
     type: 'array'
   }
 }

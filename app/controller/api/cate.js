@@ -2,10 +2,10 @@ const { Controller } = require('egg')
 
 // 验证分类
 const createRule = {
-  name: {
+  name: {// 分类名称
     type: 'string'
   },
-  sort: {
+  sort: {// 排序
     type: 'number'
   }
 }
